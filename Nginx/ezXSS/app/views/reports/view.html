@@ -1,0 +1,140 @@
+<div class="wrapper">
+
+    {menu}
+
+    <section class="content {%!if isLoggedIn}no-left{%/!if}">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="view-header">
+                        <div class="header-title">
+                            <h3 class="m-b-xs">View report</h3>
+                            {%if isLoggedIn}
+                            <small>The report page allows you to manage, share, and delete your report. Also holds all
+                                the information like URL, cookies, HTML DOM and more.</small>
+                            {%/if}
+                            {%!if isLoggedIn}
+                            <small>Displays various details about the report, such as the payload, URL, cookies, HTML
+                                DOM, and more, allowing to analyze and interpret the data.</small>
+                            {%/!if}
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+
+            {message}
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-filled">
+                        <div class="panel-heading">Information</div>
+                        <div class="panel-body">
+                            <div>
+                                <table class="table report">
+                                    <thead>
+                                        <tr>
+                                            <td width=150px>URL</td>
+                                            <td>{%data uri}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>IP</td>
+                                            <td>{%data ip}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Referer</td>
+                                            <td>{%data referer}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Payload</td>
+                                            <td>{%data payload}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Browser</td>
+                                            <td>{%data browser}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>User Agent</td>
+                                            <td>{%data user-agent}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Cookies</td>
+                                            <td class="request-box"><textarea spellcheck=false class="form-control"
+                                                    rows="4" id="cookies">{%data cookies}</textarea>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Local Storage</td>
+                                            <td class="request-box"><textarea spellcheck=false class="form-control"
+                                                    rows="4" id="localstorage">{%data localstorage}</textarea>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Session Storage</td>
+                                            <td class="request-box"><textarea spellcheck=false class="form-control"
+                                                    rows="4" id="sessionstorage">{%data sessionstorage}</textarea>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>DOM</td>
+                                            <td class="request-box"><textarea spellcheck=false class="form-control"
+                                                    rows="12.5" id="dom">{%data dom}</textarea>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Origin</td>
+                                            <td>{%data origin}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Time</td>
+                                            <td>{%data time}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Screenshot</td>
+                                            <td>{%data screenshot}</td>
+                                        </tr>
+                                    </thead>
+                                </table>
+
+                                {%if isLoggedIn}
+                                <button class="btn delete" report-id="{%data id}">Delete</button>
+                                <button class="btn archive" report-id="{%data id}">Archive</button>
+                                <button class="btn share" data-target="#shareModal" data-toggle="modal"
+                                    report-id="{%data id}" share-id="{%data shareid}">Share
+                                </button>
+                                <button class="btn copycookies" report-origin="{%data origin}">Copy cookies as
+                                    JSON
+                                </button>
+                                <button class="btn render" report-origin="{%data origin}">Render HTML DOM</button>
+                                {%/if}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+{%if isLoggedIn}
+<div class="modal fade" id="shareModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" data-dismiss="modal" type="button">&times;</button>
+                <h3 class="m-b-xs">Share</h3>
+                <small>Share your reports using a direct link anyone without permissions can view</small>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="control-label" for="shareid">Direct share link</label>
+                    <input class="form-control" id="shareid" type="text" value="">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" data-dismiss="modal" type="button">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+{%/if}

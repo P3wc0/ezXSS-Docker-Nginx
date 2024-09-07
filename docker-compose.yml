@@ -1,0 +1,28 @@
+version: "3.8"
+services:
+  ezxssdb:
+    image: mariadb
+    restart: always
+    container_name: ezxssdb
+    environment:
+      - MYSQL_RANDOM_ROOT_PASSWORD=yes
+      - MYSQL_DATABASE=${dbName}
+      - MYSQL_USER=${dbUser}
+      - MYSQL_PASSWORD=${dbPassword}
+    volumes:
+      - "./ezxssdb:/var/lib/mysql"
+  ezxss:
+    container_name: ezxss
+    build:
+      context: ./Nginx
+      dockerfile: Dockerfile.server
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    env_file:
+      - .env
+    volumes:
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+    depends_on:
+      - ezxssdb

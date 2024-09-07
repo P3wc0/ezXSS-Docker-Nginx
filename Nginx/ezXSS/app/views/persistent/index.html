@@ -1,0 +1,103 @@
+<div class="wrapper">
+
+    {menu}
+
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="view-header">
+                        <div class="header-title">
+                            <h3 class="m-b-xs">All sessions</h3>
+                            <small>The sessions page allows you to view, search and delete all of your payload's
+                                persistent sessions. Use it to track online and offline sessions.
+                            </small>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+
+            {message}
+
+            <div class="row">
+
+                <div class="col-lg-12">
+                    <select class="form-control content-select" id="payloadListSession" name="payloadListSession">
+                        {%foreach payload}
+                        <option value="{payload->id}" {payload->selected}>{payload->name}</option>
+                        {%/foreach}
+                    </select>
+                    <br>
+                </div>
+
+                <div class="col-lg-12">
+                    <div class="panel panel-filled">
+                        <div class="panel-heading">Information <span class="last-time" id="last">0s ago</span></div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table id="persistent" class="table">
+                                    <thead>
+                                        <tr>
+                                            <th class="persistent-table-id">
+                                                <label class="reports-checkbox-label">
+                                                    <input id="select-all" name="select-all" type="checkbox">
+                                                    <span class="reports-checkbox-custom rectangular"></span>
+                                                </label>
+                                                Client ID
+                                            </th>
+                                            <th>Browser</th>
+                                            <th>IP</th>
+                                            <th>Last page</th>
+                                            <th>Payload</th>
+                                            <th>Requests</th>
+                                            <th>Last online</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="reports-list">
+                                        
+                                    </tbody>
+                                </table>
+
+                                <div class="">
+                                    <div class="dataTables_paginate paging_simple_numbers">
+                                        with selected:
+                                        <a class="btn" data-toggle="modal" data-target="#executeModal">Execute</a>
+                                        <button class="btn kill-selected">Kill persistent</button>
+                                        <button class="btn persistent-delete-selected">Delete</button>
+                                    </div><br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="modal fade" id="executeModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" data-dismiss="modal" type="button">&times;</button>
+                    <h3 class="m-b-xs">Execute code</h3>
+                    <small>Execute code on all selected sessions</small>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="control-label" for="command">Command</label>
+                        <input class="form-control" name="command" id="command" type="text"
+                            placeholder="console.log(1);">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn execute-selected" data-dismiss="modal" type="button">Execute</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/assets/js/dataTables/jquery.dataTables.js"></script>
+<script src="/assets/js/dataTables/bootstrap.dataTables.js"></script>
+<script src="/assets/js/dataTables/init.js"></script>

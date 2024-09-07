@@ -1,0 +1,10 @@
+FROM debian:bookworm-slim
+WORKDIR /var/www/html
+RUN apt-get update -y && \
+    apt-get upgrade -y && \
+    apt-get install -y nginx php8.2 php8.2-fpm php-mysql gettext curl php-curl && \
+    service nginx start 
+COPY ./entrypoint.sh .
+COPY ezXSS .
+RUN chmod +x ./entrypoint.sh 
+CMD ["./entrypoint.sh"]
